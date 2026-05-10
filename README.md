@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="images/divinity.png" alt="Divinity Logo" width="300"/>
 
   # Divinity
 
@@ -7,6 +6,10 @@
 
   [![Go Reference](https://pkg.go.dev/badge/github.com/Jotadev-bug/Divinity.svg)](https://pkg.go.dev/github.com/Jotadev-bug/Divinity)
   [![Go Report Card](https://goreportcard.com/badge/github.com/Jotadev-bug/Divinity)](https://goreportcard.com/report/github.com/Jotadev-bug/Divinity)
+</div>
+
+<div align="center">
+  <img src="images/divinity.png" alt="Divinity Logo" width="100%"/>
 </div>
 
 <br />
