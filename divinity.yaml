@@ -1,0 +1,17 @@
+version: 1
+agents:
+    - name: echo-plan
+      type: shell
+      command: divinity-example-agent
+      args:
+        - '{{task}}'
+      env: {}
+      description: Replace this with a real CLI agent command such as Gemini CLI, Claude Code, Aider, or a custom script.
+validation:
+    - name: git-status
+      command: git
+      args:
+        - status
+        - --short
+preferences:
+    max_parallel_agents: 4

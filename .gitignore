@@ -1,0 +1,4 @@
+.divinity/
+dist/
+*.exe
+*.test
