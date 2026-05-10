@@ -66,6 +66,9 @@ func (m Manager) RemoveWorktree(ctx context.Context, wt Worktree) error {
 }
 
 func (m Manager) Diff(ctx context.Context, wt Worktree) (string, error) {
+	if err := m.MarkUntrackedForDiff(ctx, wt); err != nil {
+		return "", err
+	}
 	result := execx.RunGit(ctx, wt.Path, "diff", "--binary", "HEAD")
 	if result.Err != nil {
 		return result.Output, execx.RequireOK(result)
@@ -74,6 +77,7 @@ func (m Manager) Diff(ctx context.Context, wt Worktree) (string, error) {
 }
 
 func (m Manager) DiffStat(ctx context.Context, wt Worktree) (filesChanged, linesAdded, linesDeleted int) {
+	_ = m.MarkUntrackedForDiff(ctx, wt)
 	result := execx.RunGit(ctx, wt.Path, "diff", "--numstat", "HEAD")
 	for _, line := range strings.Split(result.Output, "\n") {
 		fields := strings.Fields(line)
@@ -85,6 +89,14 @@ func (m Manager) DiffStat(ctx context.Context, wt Worktree) (filesChanged, lines
 		linesDeleted += parseNumstat(fields[1])
 	}
 	return filesChanged, linesAdded, linesDeleted
+}
+
+func (m Manager) MarkUntrackedForDiff(ctx context.Context, wt Worktree) error {
+	result := execx.RunGit(ctx, wt.Path, "add", "--intent-to-add", ".")
+	if result.Err != nil {
+		return execx.RequireOK(result)
+	}
+	return nil
 }
 
 func slug(value string) string {

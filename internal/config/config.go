@@ -19,12 +19,20 @@ type Config struct {
 }
 
 type AgentConfig struct {
-	Name        string            `yaml:"name"`
-	Type        string            `yaml:"type"`
-	Command     string            `yaml:"command"`
-	Args        []string          `yaml:"args"`
-	Env         map[string]string `yaml:"env"`
-	Description string            `yaml:"description"`
+	Name            string            `yaml:"name"`
+	Type            string            `yaml:"type"`
+	Command         string            `yaml:"command"`
+	Args            []string          `yaml:"args"`
+	Env             map[string]string `yaml:"env"`
+	Description     string            `yaml:"description"`
+	BaseURL         string            `yaml:"base_url"`
+	Model           string            `yaml:"model"`
+	APIKeyEnv       string            `yaml:"api_key_env"`
+	System          string            `yaml:"system"`
+	OutputFile      string            `yaml:"output_file"`
+	Temperature     *float64          `yaml:"temperature"`
+	MaxSteps        int               `yaml:"max_steps"`
+	AllowedCommands []string          `yaml:"allowed_commands"`
 }
 
 type ValidationCheck struct {
@@ -57,7 +65,10 @@ func Default() Config {
 }
 
 func WriteDefault(path string) error {
-	cfg := Default()
+	return Write(path, Default())
+}
+
+func Write(path string, cfg Config) error {
 	data, err := yaml.Marshal(cfg)
 	if err != nil {
 		return err

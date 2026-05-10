@@ -1,12 +1,29 @@
 version: 1
 agents:
-    - name: echo-plan
+    - name: gemini-implementer
       type: shell
-      command: divinity-example-agent
+      command: gemini
       args:
-        - '{{task}}'
-      env: {}
-      description: Replace this with a real CLI agent command such as Gemini CLI, Claude Code, Aider, or a custom script.
+        - --approval-mode=yolo
+        - --prompt
+        - |-
+          You are Gemini CLI running as a Divinity coding agent inside an isolated Git worktree.
+          Make the requested code or file changes directly in the current working directory.
+          Do not only describe the solution. Create, edit, and run commands as needed.
+
+          Task:
+          {{task}}
+      env:
+        GEMINI_SANDBOX: "false"
+      description: ""
+      base_url: ""
+      model: ""
+      api_key_env: ""
+      system: ""
+      output_file: ""
+      temperature: null
+      max_steps: 0
+      allowed_commands: []
 validation:
     - name: git-status
       command: git

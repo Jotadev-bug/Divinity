@@ -1,4 +1,9 @@
 .divinity/
+.gocache/
+.gopath/
 dist/
 *.exe
 *.test
+.env
+.vscode/
+.idea/
